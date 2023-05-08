@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://lfool.github.io/LFool-Notes/"><img src="https://cdn.jsdelivr.net/gh/LFool/image-hosting@master/20220108/01012216415748821641574882653Cdc3fw.ico" alt="" width="150" /></a>
+<a><img src="https://cdn.jsdelivr.net/gh/LFool/image-hosting@master/20220108/01012216415748821641574882653Cdc3fw.ico" alt="" width="150" /></a>
 </p>
 
 $$\huge hay's \, Notes$$
