@@ -1,7 +1,6 @@
 # KMP
+
 - $O(n)$ 时间内找到匹配的字符串
-
-
 
 ```python
 n=int(input())
