@@ -55,25 +55,25 @@ for i in range(n):
 ## 字典实现
 
 ```python
-Trie={}
+Trie = {}
 def insert(s):
-    Node=Trie
+    Node = Trie
     for x in s:
-        Node=Node.setdefault(x, {})#如果存在ch则返回原本的值，否则返回{}
-    Node['count']=Node.get('count',0)+1
+        Node = Node.setdefault(x, {})#如果存在ch则返回原本的值，否则返回{}
+    Node['count'] = Node.get('count', 0) + 1
 
 def query(s):
-    Node=Trie
+    Node = Trie
     for x in s:
         if x not in Node:
             return 0
-        Node=Node[x]
-    return Node.get('count',0)#
+        Node = Node[x]
+    return Node.get('count', 0)#
     
-n=int(input())
+n = int(input())
 for i in range(n):
-    a,b=input().split()
-    if a=="I":
+    a, b = input().split()
+    if a == "I":
         insert(b)
     else:
         print(query(b))
@@ -86,7 +86,7 @@ for i in range(n):
 class TreeNode:
     def __init__(self):
         self.val = 0
-        self.next = [None]*26
+        self.next = [None] * 26
 
 root = TreeNode()
 

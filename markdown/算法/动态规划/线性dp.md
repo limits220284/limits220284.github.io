@@ -43,8 +43,6 @@ print(le)
 
 ```
 
-</font>
-
 ### 最长公共子序列
 
 - 如何求解两个序列中公共子序列的最大长度
@@ -54,15 +52,13 @@ $f=\begin{cases}
 状态计算
 \end{cases}$
 
-<font size=5>
-
 ```python
 # 动态规划
-n,m=map(int,input().split())
-a=[x for x in input()]
-b=[x for x in input()]
-print(a,b)
-f=[[0]*(m+1) for i in range(n+1)]
+n, m = map(int, input().split())
+a = [x for x in input()]
+b = [x for x in input()]
+print(a, b)
+f = [[0] * (m+1) for i in range(n+1)]
 
 # f[i][j] 代表的是a[1-i] 和 b[1-j] 中相同的最大子序列的长度
 # 然后f[i][j] 应该根据是否包含a_i,b_j 来划分子集
@@ -70,12 +66,10 @@ f=[[0]*(m+1) for i in range(n+1)]
 # 如果不包含a_i,b_j,那么f[i][j] 就不用变化
 # 如果包含其中一个,可以用f[i-1][j],f[i][j-1]来代替\
 # f[0][0] 是 0,并且f[i][0] 和f[0][j] 都是零
-for i in range(1,n+1):
-    for j in range(1,m+1):
-        f[i][j]=max(f[i-1][j],f[i][j-1])
-        if a[i-1]==b[j-1]:
-            f[i][j]=max(f[i][j],f[i-1][j-1]+1)
+for i in range(1, n+1):
+    for j in range(1, m+1):
+        f[i][j] = max(f[i-1][j], f[i][j-1])
+        if a[i-1] == b[j-1]:
+            f[i][j] = max(f[i][j], f[i-1][j-1]+1)
 print(f[n][m])
 ```
-
-</font>
