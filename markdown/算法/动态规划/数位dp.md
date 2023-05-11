@@ -1,12 +1,12 @@
-# 数位dp常见题目
+## 数位dp常见题目
 
-## [2376. 统计特殊整数](https://leetcode.cn/problems/count-special-integers/)
+### [2376. 统计特殊整数](https://leetcode.cn/problems/count-special-integers/)
 
-## [902. 最大为 N 的数字组合](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/)
+### [902. 最大为 N 的数字组合](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/)
 
-## [面试题 17.06. 2出现的次数](https://leetcode.cn/problems/number-of-2s-in-range-lcci/)
+### [面试题 17.06. 2出现的次数](https://leetcode.cn/problems/number-of-2s-in-range-lcci/)
 
-## 模板
+### 模板
 
 ```python
 def countSpecialNumbers(n: int) -> int:
