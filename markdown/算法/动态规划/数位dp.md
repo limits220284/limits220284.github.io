@@ -1,4 +1,4 @@
-## 数位dp常见题目
+# 数位dp常见题目
 
 ### [2376. 统计特殊整数](https://leetcode.cn/problems/count-special-integers/)
 

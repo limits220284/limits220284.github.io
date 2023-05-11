@@ -63,7 +63,8 @@ $$\huge hay's \, Notes$$
 
 ### 7、特殊类型题目
 
-- [打家劫舍](./html/algorithm/Special%20Problems/House_Robber.html)
+- [打家劫舍](html/algorithm/Special%20Problems/打家劫舍问题.html)
+- [子数组问题](html/Algorithm/Special%20Problems/子数组问题.html)
 
 ---
 

@@ -1,14 +1,14 @@
-## [1.字符串的前缀分数和](https://leetcode.cn/problems/sum-of-prefix-scores-of-strings/)
+### [1.字符串的前缀分数和](https://leetcode.cn/problems/sum-of-prefix-scores-of-strings/)
 
-## [2.实现 Trie (前缀树)](https://leetcode.cn/problems/implement-trie-prefix-tree/)
+### [2.实现 Trie (前缀树)](https://leetcode.cn/problems/implement-trie-prefix-tree/)
 
-## [3.含最多 K 个可整除元素的子数组](https://leetcode.cn/problems/k-divisible-elements-subarrays/)
+### [3.含最多 K 个可整除元素的子数组](https://leetcode.cn/problems/k-divisible-elements-subarrays/)
 
-## [4.最大异或对](https://www.acwing.com/problem/content/description/145/)
+### [4.最大异或对](https://www.acwing.com/problem/content/description/145/)
 
 - 不要死板的套用公式，有时候需要对$insert$和$query$操作进行变动
 
-## Trie
+# Trie
 
 - 高效的存储和查找字符串集合的数据结构
 ![Alt](https://oi-wiki.org/string/images/trie1.png)
