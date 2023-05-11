@@ -16,51 +16,50 @@ $$\huge hay's \, Notes$$
 
 ### 1、基础算法
 
-- 二分
-- 位运算
-- 前缀和与差分
-- 双指针算法
-- 归并排序
-- 快速排序
-- 离散化
-- 高精度算法
+- [二分](html\Algorithm\Basic%20Algorithm\二分.html)
+- [位运算](html\Algorithm\Basic%20Algorithm\位运算.html)
+- [前缀和与差分](html\Algorithm\Basic%20Algorithm\前缀和与差分.html)
+- [双指针算法](html\Algorithm\Basic%20Algorithm\双指针算法.html)
+- [归并排序](html\Algorithm\Basic%20Algorithm\归并排序.html)
+- [快速排序](html\Algorithm\Basic%20Algorithm\快速排序.html)
+- [离散化](html\Algorithm\Basic%20Algorithm\离散化.html)
+- [高精度算法](html\Algorithm\Basic%20Algorithm\高精度算法.html)
 
 ### 2、数据结构
 
-- KMP
-- Trie树
-- 单调栈
-- 单调队列
-- 堆
-- 并查集
-- 树状数组
-- 字符串哈希
-- 线段树
+- [KMP](html\Algorithm\Data%20Structure\KMP.html)
+- [Trie树](html\Algorithm\Data%20Structure\Trie树.html)
+- [单调栈](html\Algorithm\Data%20Structure\单调栈.html)
+- [单调队列](html\Algorithm\Data%20Structure\单调队列.html)
+- [堆](html\Algorithm\Data%20Structure\堆.html)
+- [并查集](html\Algorithm\Data%20Structure\并查集.html)
+- [树状数组](html\Algorithm\Data%20Structure\树状数组.html)
+- [字符串哈希](html\Algorithm\Data%20Structure\字符串哈希.html)
+- [线段树](html\Algorithm\Data%20Structure\线段树.html)
 
 ### 3、搜索算法 (DFS/回溯/BFS)
 
-- 回溯
-- 求解最短路
+- [回溯](html\Algorithm\Search%20Algorithm\回溯.html)
 
 ### 4、动态规划
 
-- 动态规划杂题
-- 数位dp
-- 线性dp
-- 经典dp题目
-- 背包问题
+- [背包问题](html/Algorithm/DP/背包问题.html)
+- [经典dp题目](html\Algorithm\DP\经典dp题目.html)
+- [数位dp](html\Algorithm\DP\数位dp.html)
+- [线性dp](html\Algorithm\DP\线性dp.html)
+- [动态规划杂题](html\Algorithm\DP\动态规划杂题.html)
 
 ### 5、贪心 😊
 
 ### 6、图 😊😊
 
-- Bellma_Ford
-- spfa
-- 匈牙利算法
-- 拓扑序列
-- 染色法判定二分图
-- 求解最小生成树
-- dijkstera + floyed
+- [Bellman_Ford](html\Algorithm\Graph\Bellman_Ford.html)
+- [spfa](html\Algorithm\Graph\spfa.html)
+- [匈牙利算法](html\Algorithm\Graph\匈牙利算法.html)
+- [拓扑序列](html\Algorithm\Graph\拓扑序列.html)
+- [染色法判定二分图](html\Algorithm\Graph\染色法判定二分图.html)
+- [求解最小生成树](html\Algorithm\Graph\求解最小生成树.html)
+- [dijkstera + floyed](html\Algorithm\Graph\求解最短路的算法.html)
 
 ### 7、特殊类型题目
 
