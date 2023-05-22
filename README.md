@@ -61,19 +61,17 @@ $$\huge hay's \, Notes$$
 - [求解最小生成树](html\Algorithm\Graph\求解最小生成树.html)
 - [dijkstera + floyed](html\Algorithm\Graph\求解最短路的算法.html)
 
-
-
 ### 7、数学
 
--  [博弈论](html\Algorithm\Math\博弈论.html) 
--  [高斯消元法](html\Algorithm\Math\高斯消元法.html) 
--  [快速幂](html\Algorithm\Math\快速幂.html) 
--  [扩展欧几里得算法](html\Algorithm\Math\扩展欧几里得算法.html) 
--  [欧拉函数](html\Algorithm\Math\欧拉函数.html) 
--  [约数](html\Algorithm\Math\约数.html) 
--  [质数](html\Algorithm\Math\质数.html) 
--  [中国剩余定理](html\Algorithm\Math\中国剩余定理.html) 
--  [组合数](html\Algorithm\Math\组合数.html) 
+- [博弈论](html\Algorithm\Math\博弈论.html)
+- [高斯消元法](html\Algorithm\Math\高斯消元法.html)
+- [快速幂](html\Algorithm\Math\快速幂.html)
+- [扩展欧几里得算法](html\Algorithm\Math\扩展欧几里得算法.html)
+- [欧拉函数](html\Algorithm\Math\欧拉函数.html)
+- [约数](html\Algorithm\Math\约数.html)
+- [质数](html\Algorithm\Math\质数.html)
+- [中国剩余定理](html\Algorithm\Math\中国剩余定理.html)
+- [组合数](html\Algorithm\Math\组合数.html)
 
 ### 8、特殊类型题目
 
@@ -98,7 +96,7 @@ $$\huge hay's \, Notes$$
 
 ### 基础 😁
 
-- 待续
+- [CPlusPlusThings](https://github.com/Light-City/CPlusPlusThings)
 
 ---
 
