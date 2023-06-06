@@ -6,6 +6,8 @@
 
 ### [面试题 17.06. 2出现的次数](https://leetcode.cn/problems/number-of-2s-in-range-lcci/)
 
+### [6396. 统计整数数目](https://leetcode.cn/problems/count-of-integers/)
+
 ### 模板
 
 ```python
