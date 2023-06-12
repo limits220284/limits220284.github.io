@@ -51,7 +51,7 @@ $$\huge hay's \, Notes$$
 
 ### 5、贪心 😊
 
-- [反悔堆](html\Algorithm\Greedy Algorithm\反悔堆.html) 
+- [反悔堆](html\Algorithm\Greedy Algorithm\反悔堆.html)
 
 ### 6、图 😊😊
 
@@ -75,7 +75,12 @@ $$\huge hay's \, Notes$$
 - [中国剩余定理](html\Algorithm\Math\中国剩余定理.html)
 - [组合数](html\Algorithm\Math\组合数.html)
 
-### 8、特殊类型题目
+### 8、树和链表
+
+- 树的基本性质
+- [树的祖先问题](html\Algorithm\Trees and linked lists\树的祖先问题.html) 
+
+### 9、特殊类型题目
 
 - [打家劫舍](html/algorithm/Special%20Problems/打家劫舍问题.html)
 - [子数组问题](html/Algorithm/Special%20Problems/子数组问题.html)
