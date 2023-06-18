@@ -48,6 +48,7 @@ $$\huge hay's \, Notes$$
 - [数位dp](html\Algorithm\DP\数位dp.html)
 - [线性dp](html\Algorithm\DP\线性dp.html)
 - [动态规划杂题](html\Algorithm\DP\动态规划杂题.html)
+-  [状态压缩](html\Algorithm\DP\状态压缩dp.html) 
 
 ### 5、贪心 😊
 
