@@ -13,3 +13,8 @@
 ### [6893. 特别的排列](https://leetcode.cn/problems/special-permutations/)
 
 - 状态压缩dp
+
+### [1595. 连通两组点的最小成本](https://leetcode.cn/problems/minimum-cost-to-connect-two-groups-of-points/)
+
+- 状态压缩dp
+- 二分图匹配
