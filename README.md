@@ -48,7 +48,7 @@ $$\huge hay's \, Notes$$
 - [数位dp](html\Algorithm\DP\数位dp.html)
 - [线性dp](html\Algorithm\DP\线性dp.html)
 - [动态规划杂题](html\Algorithm\DP\动态规划杂题.html)
--  [状态压缩](html\Algorithm\DP\状态压缩dp.html) 
+- [状态压缩](html\Algorithm\DP\状态压缩dp.html)
 
 ### 5、贪心 😊
 
@@ -79,7 +79,7 @@ $$\huge hay's \, Notes$$
 ### 8、树和链表
 
 - 树的基本性质
-- [树的祖先问题](html\Algorithm\Trees and linked lists\树的祖先问题.html) 
+- [树的祖先问题](html\Algorithm\Trees and linked lists\树的祖先问题.html)
 
 ### 9、特殊类型题目
 
@@ -105,6 +105,7 @@ $$\huge hay's \, Notes$$
 ### 基础 😁
 
 - [CPlusPlusThings](https://github.com/Light-City/CPlusPlusThings)
+- [c++常用技巧]()
 
 ---
 
