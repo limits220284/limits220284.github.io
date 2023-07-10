@@ -1,4 +1,6 @@
 # 线性dp
+### [300. 最长递增子序列](https://leetcode.cn/problems/longest-increasing-subsequence/)
+### []
 
 ## 1、最长上升子序列I
 
@@ -23,24 +25,46 @@ print(max(dp))
   - 最后返回值就是最大的长度
 
 ```python
-n = int(input())
-a = list(map(int, input().split()))
-q = [0] * (n+1)
-le = 0
-q[0] =- 2e9
-for a_i in a:
-    l, r = 0, le
-    # 开始插入a_i
-    while l < r:
-        mid = (l+r+1) // 2
-        if q[mid] < a_i:
-            l = mid
-        else:
-            r = mid - 1
-    le = max(le, r+1)
-    q[r+1] = a_i
-print(le)
+def lengthOfLIS(self, nums: List[int]) -> int:
+        # 二分做法
+        # 每次的数都要比当前的大即可
+        n = len(nums)
+        q = []
+        for i in range(n):
+            l, r = 0, len(q)-1
+            while l < r:
+                mid = (l + r) // 2
+                if q[mid] >= nums[i]:
+                    r = mid
+                else:
+                    l = mid + 1
+            if len(q) == 0 or q[l] < nums[i]:
+                q.append(nums[i])
+            else:
+                q[l] = nums[i]
+        return len(q)
+```
 
+```c++
+int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> q;
+        for(auto& x: nums){
+            int l = 0, r = q.size()-1;
+            while(l < r){
+                int mid = (l + r) / 2;
+                if(q[mid] >= x){
+                    r = mid;
+                }
+                else{
+                    l = mid + 1;
+                }
+            }
+            if(q.empty() || q[l] < x) q.push_back(x);
+            else q[l] = x;
+        }
+        return q.size();
+    }
 ```
 
 ## 最长公共子序列
