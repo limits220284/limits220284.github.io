@@ -1,0 +1,1 @@
+import{j as e,b as t,c as a}from"./chunks/framework.Bxf40uRC.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"设计模式/面试问题.md","filePath":"设计模式/面试问题.md","lastUpdated":null}'),r={name:"设计模式/面试问题.md"};function s(n,o,c,_,d,p){return t(),a("div")}const m=e(r,[["render",s]]);export{l as __pageData,m as default};
