@@ -1,1 +1,0 @@
-import{j as t,b as e,c as a}from"./chunks/framework.Bxf40uRC.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"RabbitMq/高级.md","filePath":"RabbitMq/高级.md","lastUpdated":null}'),r={name:"RabbitMq/高级.md"};function s(n,o,c,i,d,p){return e(),a("div")}const m=t(r,[["render",s]]);export{l as __pageData,m as default};
