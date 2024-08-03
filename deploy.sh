@@ -8,7 +8,7 @@ npm run build
 cd docs/.vitepress/dist
 
 # 如果是发布到自定义域名
-echo "sloving.top" > CNAME
+# echo "hayblog.cn" > CNAME
 
 git init
 git add -A

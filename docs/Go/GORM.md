@@ -1,4 +1,6 @@
-### ORM https://www.liwenzhou.com/posts/Go/gorm/
+# GORM
+
+- <https://www.liwenzhou.com/posts/Go/gorm/>
 
 - Object Relational Mapping 对象关系映射
   - object(程序中的对象/实例)
@@ -12,33 +14,33 @@
   - 弱化SQL能力
 - 基本的增删查改
 
-```go
-db, err := gorm.Open("mysql", "root:060030@(localhost)/hayblog?charset=utf8mb4&parseTime=True&loc=Local")
-if err != nil {
-    fmt.Printf("连接数据库失败%v", err.Error())
-}
-fmt.Println("连接数据库成功")
-defer db.Close()
-//创建表，自动迁移(把结构体和数据表进行对应)
-db.AutoMigrate(&UserInfo{})
-u1 := UserInfo{
-    1,
-    "wanghao",
-    "man",
-    "math",
-}
-//增加
-db.Create(&u1)
-//查找
-var u UserInfo
-db.First(&u) // 查询数据库中的第一条数据，保存到u中
-fmt.Printf("u:%v\n", u)
-//更新
-db.Model(&u).Update("hobby", "双色球")
-fmt.Printf("u:%v\n", u)
-//删除
-db.Delete(&u)
-```
+    ```go
+    db, err := gorm.Open("mysql", "root:060030@(localhost)/hayblog?charset=utf8mb4&parseTime=True&loc=Local")
+    if err != nil {
+        fmt.Printf("连接数据库失败%v", err.Error())
+    }
+    fmt.Println("连接数据库成功")
+    defer db.Close()
+    //创建表，自动迁移(把结构体和数据表进行对应)
+    db.AutoMigrate(&UserInfo{})
+    u1 := UserInfo{
+        1,
+        "wanghao",
+        "man",
+        "math",
+    }
+    //增加
+    db.Create(&u1)
+    //查找
+    var u UserInfo
+    db.First(&u) // 查询数据库中的第一条数据，保存到u中
+    fmt.Printf("u:%v\n", u)
+    //更新
+    db.Model(&u).Update("hobby", "双色球")
+    fmt.Printf("u:%v\n", u)
+    //删除
+    db.Delete(&u)
+    ```
 
 ### GORM 中的 MODLE
 
@@ -59,9 +61,8 @@ db.Delete(&u)
   
   ```
 
-  
-
 - GORM还支持更改默认表名称规则：
+
   ```go
   gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) string  {
     return "prefix_" + defaultTableName;
@@ -79,11 +80,7 @@ db.Delete(&u)
   
   ```
 
-  
-
-
-
-### GORM crud https://www.liwenzhou.com/posts/Go/gorm-crud/
+### GORM crud <https://www.liwenzhou.com/posts/Go/gorm-crud/>
 
 - 使用使用`NewRecord()`查询主键是否存在，主键为空使用`Create()`创建记录
 
@@ -91,57 +88,33 @@ db.Delete(&u)
 
 - 通过tag创建默认值
 
-```go
-type User struct {
-  ID   int64
-  Name string `gorm:"default:'小王子'"`
-  Age  int64
-}
-//
-```
+    ```go
+    type User struct {
+      ID   int64
+      Name string `gorm:"default:'小王子'"`
+      Age  int64
+    }
+    //
+    ```
 
 - 所有字段的零值, 比如`0`, `""`,`false`或者其它`零值`，都不会保存到数据库内，但会使用他们的默认值。 如果你想避免这种情况，可以考虑使用指针或实现 `Scanner/Valuer`接口
 
-  ```go
-  //方法1 使用指针
-  type User struct {
-    ID   int64
-    Name *string `gorm:"default:'小王子'"`
-    Age  int64
-  }
-  user := User{Name: new(string), Age: 18))}
-  db.Create(&user)  // 此时数据库中该条记录name字段的值就是''
-  
-  
-  //方法2 使用 Scanner/Valuer
-  type User struct {
-  	ID int64
-  	Name sql.NullString `gorm:"default:'小王子'"` // sql.NullString 实现了Scanner/Valuer接口
-  	Age  int64
-  }
-  user := User{Name: sql.NullString{"", true}, Age:18}
-  db.Create(&user)  // 此时数据库中该条记录name字段的值就是''
-  ```
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    ```go
+    //方法1 使用指针
+    type User struct {
+        ID   int64
+        Name *string `gorm:"default:'小王子'"`
+        Age  int64
+    }
+    user := User{Name: new(string), Age: 18))}
+    db.Create(&user)  // 此时数据库中该条记录name字段的值就是''
+    
+    //方法2 使用 Scanner/Valuer
+    type User struct {
+        ID int64
+        Name sql.NullString `gorm:"default:'小王子'"` // sql.NullString 实现了Scanner/Valuer接口
+        Age  int64
+    }
+    user := User{Name: sql.NullString{"", true}, Age:18}
+    db.Create(&user)  // 此时数据库中该条记录name字段的值就是''
+    ```

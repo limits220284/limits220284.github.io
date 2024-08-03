@@ -1,11 +1,13 @@
+# Go语言之基础知识
+
 ### 安装go
 
 ```bash
-$env:GO111MODULE = "on" # 将gomod打开
-$env:GOPROXY = "http://goproxy.cn" # 设置代理
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
 ```
 
-​           
+
 
 ### 常用命令
 
@@ -16,8 +18,6 @@ go clean xxx.go # 清除对象文件
 go get url # 安装相关的依赖
 go tool xxx # 运行go提供的工具
 ```
-
-
 
 ### 标识符，关键字，命名规则
 
@@ -33,11 +33,11 @@ go tool xxx # 运行go提供的工具
 - 可以使用大括号进行多个变量的同时声明
 
 ```go
-	var (
-		name string
-		age int
-		m bool
-	)
+ var (
+  name string
+  age int
+  m bool
+ )
 ```
 
 ### go 中的字符串
@@ -46,11 +46,11 @@ go tool xxx # 运行go提供的工具
 
 ```go
 // 采用反引号可以表示多行字符串
-	s1 := `
-	lin1,
-	lin2,
-	lin3
-	`
+ s1 := `
+ lin1,
+ lin2,
+ lin3
+ `
 ```
 
 - join函数 和 bytes.Buffer作用
@@ -63,13 +63,13 @@ import "bytes"
 import "strings"
 // import "code/user"
 func main() {
-	s := strings.Join([]string{"wang", "hao"}, "")
-	fmt.Println(s)
-	var buffer bytes.Buffer
-	buffer.WriteString("tom")
-	buffer.WriteString("is")
-	buffer.WriteString("cat")
-	fmt.Print(buffer.String())
+ s := strings.Join([]string{"wang", "hao"}, "")
+ fmt.Println(s)
+ var buffer bytes.Buffer
+ buffer.WriteString("tom")
+ buffer.WriteString("is")
+ buffer.WriteString("cat")
+ fmt.Print(buffer.String())
 }
 
 ```
@@ -81,20 +81,16 @@ package main
 import "fmt"
 
 type Website struct{
-	Name string
+ Name string
 }
 func main(){
-	site := Website{Name: "wanghao"}
-	fmt.Printf("site: %v \n", site)
-	fmt.Printf("site: %#v \n", site)
+ site := Website{Name: "wanghao"}
+ fmt.Printf("site: %v \n", site)
+ fmt.Printf("site: %#v \n", site)
 }
 ```
 
-
-
 ![image-20231024113244373](https://s2.loli.net/2023/11/22/mfXJ4E8R1CWI5l6.png)
-
-
 
 可以看出带上**#**会将结构体信息也输出出来
 
@@ -105,7 +101,7 @@ package main
 import "fmt"
 
 type Website struct{
-	Name string
+ Name string
 }
 func main(){
     var name string
@@ -115,14 +111,10 @@ func main(){
 }
 ```
 
-
-
 ### 流程控制
 
 - 不能采用非零表示true和false
 - for range 返回的是索引和数值
-
-
 
 ### 值传递和引用传递
 
@@ -147,40 +139,36 @@ func main(){
 
 ```go
 func f1(a, b int) int {
-	return 0
+ return 0
 }
 
 func f2(a string, b int) string {
-	return ""
+ return ""
 }
 
 func main() {
-	fmt.Printf("f1: %T\n", f1)
-	fmt.Printf("f2: %T\n", f2)
+ fmt.Printf("f1: %T\n", f1)
+ fmt.Printf("f2: %T\n", f2)
 }
 ```
 
 ![image-20231027164730105](https://s2.loli.net/2023/11/22/YNnvyGJ6ptbcMUz.png)
-
-
 
 - 定义函数类型的变量
   - var fnew func(int, int)
 
 ```go
 func main() {
-	fmt.Println(dfs(10))
-	fmt.Printf("f1: %T\n", f1)
-	var f5 func(int, int) int
-	f5 = f1
-	fmt.Println(f5(1, 2))
-	fmt.Println(f1, f5)
+ fmt.Println(dfs(10))
+ fmt.Printf("f1: %T\n", f1)
+ var f5 func(int, int) int
+ f5 = f1
+ fmt.Println(f5(1, 2))
+ fmt.Println(f1, f5)
 }
 ```
 
 ![image-20231027165301810](https://s2.loli.net/2023/11/22/E81yGQvlrOx3g29.png)
-
-
 
 ### 回调函数
 

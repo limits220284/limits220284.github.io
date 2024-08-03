@@ -3,9 +3,9 @@ name: Deploy Pages
 # 触发条件，push到main分支或者pull request到main分支
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
   # 支持手动在工作流上触发
   workflow_dispatch:
@@ -35,27 +35,22 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # node v20 运行
-    strategy:
-      matrix:
-        node-version: [20]
-
     steps:
       # 拉取代码
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # 保留 Git 信息
           fetch-depth: 0
 
       # 设置使用 Node.js 版本
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20
 
       # 使用 PNPM V8
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
           version: 8
@@ -63,7 +58,7 @@ jobs:
 
         # 安装依赖
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
         # 构建项目
       - name: Build blog project

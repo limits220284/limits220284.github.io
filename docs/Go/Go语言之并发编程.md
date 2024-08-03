@@ -1,4 +1,4 @@
-# Go语言中的并发编程
+# Go语言之并发编程
 
 ## 上下文Context
 
@@ -17,10 +17,10 @@
 
    ```go
    type Context interface {
-   	Deadline() (deadline time.Time, ok bool)
-   	Done() <-chan struct{}
-   	Err() error
-   	Value(key interface{}) interface{}
+    Deadline() (deadline time.Time, ok bool)
+    Done() <-chan struct{}
+    Err() error
+    Value(key interface{}) interface{}
    }
    ```
 
@@ -34,47 +34,35 @@
 
 ![golang-context-usage](https://s2.loli.net/2023/11/29/6ufjdac9AB3FKko.png)
 
-
-
 每一个 [`context.Context`](https://draveness.me/golang/tree/context.Context) 都会从最顶层的 Goroutine 一层一层传递到最下层。[`context.Context`](https://draveness.me/golang/tree/context.Context) 可以在上层 Goroutine 执行出现错误时，将信号及时同步给下层。
 
 ![golang-without-context](https://s2.loli.net/2023/11/29/E1xhMnzwd2UFYGN.png)
-
-
-
-
 
 如上图所示，当最上层的 Goroutine 因为某些原因执行失败时，下层的 Goroutine 由于没有接收到这个信号所以会继续工作；但是当我们正确地使用 [`context.Context`](https://draveness.me/golang/tree/context.Context) 时，就可以在下层及时停掉无用的工作以减少额外资源的消耗：
 
 ![golang-with-context](https://s2.loli.net/2023/11/29/CT8M7tzya2N91if.png)
 
-
-
-
-
 我们可以通过一个代码片段了解 [`context.Context`](https://draveness.me/golang/tree/context.Context) 是如何对信号进行同步的。在这段代码中，我们创建了一个过期时间为 1s 的上下文，并向上下文传入 `handle` 函数，该方法会使用 500ms 的时间处理传入的请求：
-
-
 
 ```go
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancel()
+ ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+ defer cancel()
 
-	go handle(ctx, 500*time.Millisecond)
-	select {
-	case <-ctx.Done():
-		fmt.Println("main", ctx.Err())
-	}
+ go handle(ctx, 500*time.Millisecond)
+ select {
+ case <-ctx.Done():
+  fmt.Println("main", ctx.Err())
+ }
 }
 
 func handle(ctx context.Context, duration time.Duration) {
-	select {
-	case <-ctx.Done():
-		fmt.Println("handle", ctx.Err())
-	case <-time.After(duration):
-		fmt.Println("process request with", duration)
-	}
+ select {
+ case <-ctx.Done():
+  fmt.Println("handle", ctx.Err())
+ case <-time.After(duration):
+  fmt.Println("process request with", duration)
+ }
 }
 ```
 
@@ -98,21 +86,17 @@ handle context deadline exceeded
 
 相信这两个例子能够帮助各位读者理解 [`context.Context`](https://draveness.me/golang/tree/context.Context) 的使用方法和设计原理 — 多个 Goroutine 同时订阅 `ctx.Done()` 管道中的消息，一旦接收到取消信号就立刻停止当前正在执行的工作。
 
-
-
 ### 默认上下文
-
-
 
 [`context`](https://github.com/golang/go/tree/master/src/context) 包中最常用的方法还是 [`context.Background`](https://draveness.me/golang/tree/context.Background)、[`context.TODO`](https://draveness.me/golang/tree/context.TODO)，这两个方法都会返回预先初始化好的私有变量 `background` 和 `todo`，它们会在同一个 Go 程序中被复用：
 
 ```go
 func Background() Context {
-	return background
+ return background
 }
 
 func TODO() Context {
-	return todo
+ return todo
 }
 ```
 
@@ -122,27 +106,25 @@ func TODO() Context {
 type emptyCtx int
 
 func (*emptyCtx) Deadline() (deadline time.Time, ok bool) {
-	return
+ return
 }
 
 func (*emptyCtx) Done() <-chan struct{} {
-	return nil
+ return nil
 }
 
 func (*emptyCtx) Err() error {
-	return nil
+ return nil
 }
 
 func (*emptyCtx) Value(key interface{}) interface{} {
-	return nil
+ return nil
 }
 ```
 
 从上述代码中，我们不难发现 [`context.emptyCtx`](https://draveness.me/golang/tree/context.emptyCtx) 通过空方法实现了 [`context.Context`](https://draveness.me/golang/tree/context.Context) 接口中的所有方法，它没有任何功能。
 
 ![golang-context-hierarchy](https://s2.loli.net/2023/11/29/8cy3q4uEGwM2ezf.png)
-
-
 
 从源代码来看，[`context.Background`](https://draveness.me/golang/tree/context.Background) 和 [`context.TODO`](https://draveness.me/golang/tree/context.TODO) 也只是互为别名，没有太大的差别，只是在使用和语义上稍有不同：
 
@@ -151,65 +133,57 @@ func (*emptyCtx) Value(key interface{}) interface{} {
 
 在多数情况下，如果当前函数没有上下文作为入参，我们都会使用 [`context.Background`](https://draveness.me/golang/tree/context.Background) 作为起始的上下文向下传递。
 
-
-
 ### 取消信号
 
 [`context.WithCancel`](https://draveness.me/golang/tree/context.WithCancel) 函数能够从 [`context.Context`](https://draveness.me/golang/tree/context.Context) 中衍生出一个新的子上下文并返回用于取消该上下文的函数。一旦我们执行返回的取消函数，当前上下文以及它的子上下文都会被取消，所有的 Goroutine 都会同步收到这一取消信号。
 
 ![golang-parent-cancel-context](https://s2.loli.net/2023/11/29/ae6zd9ZicrnLWVP.png)
 
-
-
 我们直接从 [`context.WithCancel`](https://draveness.me/golang/tree/context.WithCancel) 函数的实现来看它到底做了什么：
 
 ```go
 func WithCancel(parent Context) (ctx Context, cancel CancelFunc) {
-	c := newCancelCtx(parent)
-	propagateCancel(parent, &c)
-	return &c, func() { c.cancel(true, Canceled) }
+ c := newCancelCtx(parent)
+ propagateCancel(parent, &c)
+ return &c, func() { c.cancel(true, Canceled) }
 }
 ```
 
 - [`context.newCancelCtx`](https://draveness.me/golang/tree/context.newCancelCtx) 将传入的上下文包装成私有结构体 [`context.cancelCtx`](https://draveness.me/golang/tree/context.cancelCtx)；
 - [`context.propagateCancel`](https://draveness.me/golang/tree/context.propagateCancel) 会构建父子上下文之间的关联，当父上下文被取消时，子上下文也会被取消：
 
-
-
 ```go
 func propagateCancel(parent Context, child canceler) {
-	done := parent.Done()
-	if done == nil {
-		return // 父上下文不会触发取消信号
-	}
-	select {
-	case <-done:
-		child.cancel(false, parent.Err()) // 父上下文已经被取消
-		return
-	default:
-	}
+ done := parent.Done()
+ if done == nil {
+  return // 父上下文不会触发取消信号
+ }
+ select {
+ case <-done:
+  child.cancel(false, parent.Err()) // 父上下文已经被取消
+  return
+ default:
+ }
 
-	if p, ok := parentCancelCtx(parent); ok {
-		p.mu.Lock()
-		if p.err != nil {
-			child.cancel(false, p.err)
-		} else {
-			p.children[child] = struct{}{}
-		}
-		p.mu.Unlock()
-	} else {
-		go func() {
-			select {
-			case <-parent.Done():
-				child.cancel(false, parent.Err())
-			case <-child.Done():
-			}
-		}()
-	}
+ if p, ok := parentCancelCtx(parent); ok {
+  p.mu.Lock()
+  if p.err != nil {
+   child.cancel(false, p.err)
+  } else {
+   p.children[child] = struct{}{}
+  }
+  p.mu.Unlock()
+ } else {
+  go func() {
+   select {
+   case <-parent.Done():
+    child.cancel(false, parent.Err())
+   case <-child.Done():
+   }
+  }()
+ }
 }
 ```
-
-
 
 上述函数总共与父上下文相关的三种不同的情况：
 
@@ -227,28 +201,25 @@ func propagateCancel(parent Context, child canceler) {
 
 ```go
 func (c *cancelCtx) cancel(removeFromParent bool, err error) {
-	c.mu.Lock()
-	if c.err != nil {
-		c.mu.Unlock()
-		return
-	}
-	c.err = err
-	if c.done == nil {
-		c.done = closedchan
-	} else {
-		close(c.done)
-	}
-	for child := range c.children {
-		child.cancel(false, err)
-	}
-	c.children = nil
-	c.mu.Unlock()
+ c.mu.Lock()
+ if c.err != nil {
+  c.mu.Unlock()
+  return
+ }
+ c.err = err
+ if c.done == nil {
+  c.done = closedchan
+ } else {
+  close(c.done)
+ }
+ for child := range c.children {
+  child.cancel(false, err)
+ }
+ c.children = nil
+ c.mu.Unlock()
 
-	if removeFromParent {
-		removeChild(c.Context, c)
-	}
+ if removeFromParent {
+  removeChild(c.Context, c)
+ }
 }
 ```
-
-
-

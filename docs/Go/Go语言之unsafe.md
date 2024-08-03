@@ -6,7 +6,7 @@
 
 Go语言的指针不能够进行数学运算
 
-```golang
+```go
 a := 5
 p := &a
 
@@ -18,12 +18,12 @@ p = &a + 3 // 错误
 
 不同类型的指针不能互相转换
 
-```golang
+```go
 func main() {
-	a := int(100)
-	var f *float64
-	
-	f = &a
+ a := int(100)
+ var f *float64
+ 
+ f = &a
 }
 // 编译错误
 ```
@@ -40,7 +40,7 @@ func main() {
 
 unsafe.Pointer 在 unsafe 包中:
 
-```golang
+```go
 type ArbitraryType int
 
 type Pointer *ArbitraryType
@@ -53,22 +53,16 @@ unsafe 包提供了 2 点重要的能力：
 1. 任何类型的指针和 unsafe.Pointer 可以相互转换。
 2. uintptr 类型和 unsafe.Pointer 可以相互转换。
 
-
-
 ![type pointer uintptr](https://s2.loli.net/2023/12/26/3Zbsx1IJQfoc5Am.png)
-
-
 
 **pointer 不能直接进行数学运算，但可以把它转换成 uintptr，对 uintptr 类型进行数学运算，再转换成 pointer 类型。**
 
-```golang
+```go
 // uintptr 是一个整数类型，它足够大，可以存储
 type uintptr uintptr
 ```
 
 还有一点要注意的是，uintptr 并没有指针的语义，意思就是 uintptr 所指向的对象会被 gc 无情地回收。而 unsafe.Pointer 有指针语义，可以保护它所指向的对象在“有用”的时候不会被垃圾回收。
-
-
 
 ## 如何利用unsafe获取slice & map的长度
 
@@ -76,7 +70,7 @@ type uintptr uintptr
 
 通过前面关于 slice 的文章，我们知道了 slice header 的结构体定义：
 
-```golang
+```go
 // runtime/slice.go
 type slice struct {
     array unsafe.Pointer // 元素指针
@@ -87,47 +81,45 @@ type slice struct {
 
 调用 make 函数新建一个 slice，底层调用的是 makeslice 函数，返回的是 slice 结构体：
 
-```golang
+```go
 func makeslice(et *_type, len, cap int) slice
 ```
 
 因此我们可以通过 unsafe.Pointer 和 uintptr 进行转换，得到 slice 的字段值。
 
-```golang
+```go
 func main() {
-	s := make([]int, 9, 20)
-	var Len = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(8)))
-	fmt.Println(Len, len(s)) // 9 9
+ s := make([]int, 9, 20)
+ var Len = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(8)))
+ fmt.Println(Len, len(s)) // 9 9
 
-	var Cap = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(16)))
-	fmt.Println(Cap, cap(s)) // 20 20
+ var Cap = *(*int)(unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + uintptr(16)))
+ fmt.Println(Cap, cap(s)) // 20 20
 }
 ```
 
-```golang
+```go
 Len: &s => pointer => uintptr => pointer => *int => int
 Cap: &s => pointer => uintptr => pointer => *int => int
 ```
-
-
 
 ### 获取map长度
 
 再来看一下上篇文章我们讲到的 map：
 
-```golang
+```go
 type hmap struct {
-	count     int
-	flags     uint8
-	B         uint8
-	noverflow uint16
-	hash0     uint32
+ count     int
+ flags     uint8
+ B         uint8
+ noverflow uint16
+ hash0     uint32
 
-	buckets    unsafe.Pointer
-	oldbuckets unsafe.Pointer
-	nevacuate  uintptr
+ buckets    unsafe.Pointer
+ oldbuckets unsafe.Pointer
+ nevacuate  uintptr
 
-	extra *mapextra
+ extra *mapextra
 }
 ```
 
@@ -135,24 +127,22 @@ type hmap struct {
 
 我们依然能通过 unsafe.Pointer 和 uintptr 进行转换，得到 hamp 字段的值，只不过，现在 count 变成二级指针了：
 
-```golang
+```go
 func main() {
-	mp := make(map[string]int)
-	mp["qcrao"] = 100
-	mp["stefno"] = 18
+ mp := make(map[string]int)
+ mp["qcrao"] = 100
+ mp["stefno"] = 18
 
-	count := **(**int)(unsafe.Pointer(&mp))
-	fmt.Println(count, len(mp)) // 2 2
+ count := **(**int)(unsafe.Pointer(&mp))
+ fmt.Println(count, len(mp)) // 2 2
 }
 ```
 
 转换过程
 
-```golang
+```go
 &mp => pointer => **int => int
 ```
-
-
 
 ## 如何利用unsafe包修改私有成员
 
@@ -160,30 +150,30 @@ func main() {
 
 这里有一个内存分配相关的事实：结构体会被分配一块连续的内存，结构体的地址也代表了第一个成员的地址。
 
-```golang
+```go
 package main
 
 import (
-	"fmt"
-	"unsafe"
+ "fmt"
+ "unsafe"
 )
 
 type Programmer struct {
-	name string
-	language string
+ name string
+ language string
 }
 
 func main() {
-	p := Programmer{"stefno", "go"}
-	fmt.Println(p)
-	
-	name := (*string)(unsafe.Pointer(&p))
-	*name = "qcrao"
+ p := Programmer{"stefno", "go"}
+ fmt.Println(p)
+ 
+ name := (*string)(unsafe.Pointer(&p))
+ *name = "qcrao"
 
-	lang := (*string)(unsafe.Pointer(uintptr(unsafe.Pointer(&p)) + unsafe.Offsetof(p.language)))
-	*lang = "Golang"
+ lang := (*string)(unsafe.Pointer(uintptr(unsafe.Pointer(&p)) + unsafe.Offsetof(p.language)))
+ *lang = "Golang"
 
-	fmt.Println(p)
+ fmt.Println(p)
 }
 // 输出
 {stefno go}
@@ -194,28 +184,26 @@ func main() {
 
 ### 复杂例子
 
-```golang
+```go
 type Programmer struct {
-	name string
-	age int
-	language string
+ name string
+ age int
+ language string
 }
 //并且放在其他包，这样在 main 函数中，它的三个字段都是私有成员变量，不能直接修改。但我通过 unsafe.Sizeof() 函数可以获取成员大小，进而计算出成员的地址，直接修改内存。
 func main() {
-	p := Programmer{"stefno", 18, "go"}
-	fmt.Println(p)
+ p := Programmer{"stefno", 18, "go"}
+ fmt.Println(p)
 
-	lang := (*string)(unsafe.Pointer(uintptr(unsafe.Pointer(&p)) + unsafe.Sizeof(int(0)) + unsafe.Sizeof(string(""))))
-	*lang = "Golang"
+ lang := (*string)(unsafe.Pointer(uintptr(unsafe.Pointer(&p)) + unsafe.Sizeof(int(0)) + unsafe.Sizeof(string(""))))
+ *lang = "Golang"
 
-	fmt.Println(p)
+ fmt.Println(p)
 }
 // 输出
 {stefno 18 go}
 {stefno 18 Golang}
 ```
-
-
 
 ## 如何实现字符串和byte切片的零拷贝转换
 
@@ -223,27 +211,27 @@ func main() {
 
 完成这个任务，我们需要了解 slice 和 string 的底层数据结构：
 
-```golang
+```go
 type StringHeader struct {
-	Data uintptr
-	Len  int
+ Data uintptr
+ Len  int
 }
 
 type SliceHeader struct {
-	Data uintptr
-	Len  int
-	Cap  int
+ Data uintptr
+ Len  int
+ Cap  int
 }
 ```
 
 上面是反射包下的结构体，路径：src/reflect/value.go。只需要共享底层 Data 和 Len 就可以实现 `zero-copy`。
 
-```golang
+```go
 func string2bytes(s string) []byte {
-	return *(*[]byte)(unsafe.Pointer(&s))
+ return *(*[]byte)(unsafe.Pointer(&s))
 }
 func bytes2string(b []byte) string{
-	return *(*string)(unsafe.Pointer(&b))
+ return *(*string)(unsafe.Pointer(&b))
 }
 ```
 

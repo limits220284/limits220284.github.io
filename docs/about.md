@@ -53,6 +53,7 @@ sticky: 1
 * [列表无限滚动轮播效果](https://code.juejin.cn/pen/7145007064350195748)
 
 ## 主题相关资源
+
 * 主题地址：https://theme.sugarat.top/
 * 主题包：[@sugarat/theme](https://www.npmjs.com/package/@sugarat/theme)
 * 项目地址：https://github.com/ATQQ/sugar-blog/tree/master/packages/theme

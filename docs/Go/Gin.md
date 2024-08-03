@@ -12,19 +12,17 @@
 
       ```go
       type Info struct {
-      	Name    string `json:"name"`
-      	Message string
-      	Age     int
+       Name    string `json:"name"`
+       Message string
+       Age     int
       }
       ```
-
-      
 
   - gin.H
 
 ## 获取queryString
 
-- http://127.0.0.1:9090/web?query=wanghao&age=18
+- <http://127.0.0.1:9090/web?query=wanghao&age=18>
 
 ```go
 name := c.Query("query") // 通过query获取请求中的携带的querystring参数
@@ -41,35 +39,33 @@ c.JSON(http.StatusOK, name)
 - 用法和queryString中的差不多，都包括以下这三个函数
 
 ```go
-	r.POST("/login", func(c *gin.Context) {
-		username := c.PostForm("username")
-		password := c.PostForm("password")
-		username := c.DefaultPostForm("username", "somebody")
-		password := c.DefaultPostForm("passwrd", "***")
-		username, ok := c.GetPostForm("username")
-		password, ok := c.GetPostForm("password")
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"Name":     username,
-			"Password": password,
-		})
-	})
+ r.POST("/login", func(c *gin.Context) {
+  username := c.PostForm("username")
+  password := c.PostForm("password")
+  username := c.DefaultPostForm("username", "somebody")
+  password := c.DefaultPostForm("passwrd", "***")
+  username, ok := c.GetPostForm("username")
+  password, ok := c.GetPostForm("password")
+  c.HTML(http.StatusOK, "index.html", gin.H{
+   "Name":     username,
+   "Password": password,
+  })
+ })
 ```
 
 ## 获取url参数
 
 ```go
-	r.GET("/:name/:age", func(c *gin.Context) {
-		//获取路径参数
-		name := c.Param("name")
-		age := c.Param("age")
-		c.JSON(http.StatusOK, gin.H{
-			"Name": name,
-			"Age":  age,
-		})
-	})
+ r.GET("/:name/:age", func(c *gin.Context) {
+  //获取路径参数
+  name := c.Param("name")
+  age := c.Param("age")
+  c.JSON(http.StatusOK, gin.H{
+   "Name": name,
+   "Age":  age,
+  })
+ })
 ```
-
-
 
 ## 参数绑定
 
@@ -78,56 +74,50 @@ c.JSON(http.StatusOK, name)
 
 ```go
 type Login struct {
-	User     string `form:"user" json:"user" binding:"required"`
-	Password string `form:"password" json:"pwd" binding:"required"`
+ User     string `form:"user" json:"user" binding:"required"`
+ Password string `form:"password" json:"pwd" binding:"required"`
 }
 ```
-
-
 
 ## gin文件上传
 
 ```go
 r.POST("/upload", func(c *gin.Context) {
-		//从请求中读取文件
-		//将读取到的文件保存到本地
-		f, err := c.FormFile("f1")
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
-		} else {
-			//dst := fmt.Sprintf("./%s", f.Filename)
-			dst := path.Join("./", f.Filename)
-			c.SaveUploadedFile(f, dst)
-		}
-	})
+  //从请求中读取文件
+  //将读取到的文件保存到本地
+  f, err := c.FormFile("f1")
+  if err != nil {
+   c.JSON(http.StatusBadRequest, gin.H{
+    "error": err.Error(),
+   })
+  } else {
+   //dst := fmt.Sprintf("./%s", f.Filename)
+   dst := path.Join("./", f.Filename)
+   c.SaveUploadedFile(f, dst)
+  }
+ })
 ```
-
-
 
 ## http重定向
 
 ```go
 r.GET("/index", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "http://www.baidu.com")
-		c.JSON(http.StatusOK, gin.H{
-			"status": "ok",
-		})
+  c.Redirect(http.StatusMovedPermanently, "http://www.baidu.com")
+  c.JSON(http.StatusOK, gin.H{
+   "status": "ok",
+  })
 
-	})
-	r.GET("/a", func(c *gin.Context) {
-		c.Request.URL.Path = "/b"
-		r.HandleContext(c)
-	})
-	r.GET("/b", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "/b ok",
-		})
-	})
+ })
+ r.GET("/a", func(c *gin.Context) {
+  c.Request.URL.Path = "/b"
+  r.HandleContext(c)
+ })
+ r.GET("/b", func(c *gin.Context) {
+  c.JSON(http.StatusOK, gin.H{
+   "message": "/b ok",
+  })
+ })
 ```
-
-
 
 ## Gin路由和路由组
 
@@ -150,19 +140,17 @@ videoGroup := r.Group("/vedio")
 }
 ```
 
-
-
 ## 中间件
 
 - Gin框架允许开发者在处理请求的过程中，加入用户自己的钩子（Hook）函数。这个钩子函数就叫中间件，中间件适合处理一些公共的业务逻辑，比如**登录认证**、**权限校验**、**数据分页**、**记录日志**、**耗时统计**等。
 
 ```go
-	r.GET("/index", m1, indexHandler)
-	r.GET("/shop", m1, func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"msg": "shop",
-		})
-	})
+ r.GET("/index", m1, indexHandler)
+ r.GET("/shop", m1, func(c *gin.Context) {
+  c.JSON(http.StatusOK, gin.H{
+   "msg": "shop",
+  })
+ })
 ```
 
 - 上述代码还是比较繁琐，可以通过以下方式注册全局的中间件函数
@@ -176,8 +164,6 @@ r.GET("/shop", func(c *gin.Context) {
     })
 })
 ```
-
-
 
 - 给路由组设置中间件
 
@@ -210,5 +196,3 @@ r.GET("/shop", func(c *gin.Context) {
   - 可以使用c.set()设置变量
 
   - 可以使用c.get()获取上下文信息
-
-    
