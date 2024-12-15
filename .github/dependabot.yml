@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: "gomod"
     directory: "/" # 位置是项目根目录
     schedule:
-      interval: "weekly"
+      interval: "daily"
     commit-message:
       prefix: "deps"
   
@@ -12,6 +12,6 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/" # 位置是项目根目录
     schedule:
-      interval: "weekly"
+      interval: "daily"
     commit-message:
       prefix: "github-actions"
