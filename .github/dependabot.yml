@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # Go Modules
+  - package-ecosystem: "gomod"
+    directory: "/" # 位置是项目根目录
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "deps"
+  
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/" # 位置是项目根目录
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "github-actions"
