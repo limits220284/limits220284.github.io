@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog | Hugo Academic CV Theme</title>
-    <link>http://localhost:1313/post/</link>
-      <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
-    <description>Blog</description>
+    <title>随笔 | Hugo Academic CV Theme</title>
+    <link>http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/</link>
+      <atom:link href="http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+    <description>随笔</description>
     <generator>Hugo Blox Builder (https://hugoblox.com)</generator><language>en-us</language><lastBuildDate>Sat, 28 Dec 2024 00:00:00 +0000</lastBuildDate>
     <image>
       <url>http://localhost:1313/media/icon_hu7729264130191091259.png</url>
-      <title>Blog</title>
-      <link>http://localhost:1313/post/</link>
+      <title>随笔</title>
+      <link>http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/</link>
     </image>
     
     <item>
@@ -17,16 +17,6 @@
       <link>http://localhost:1313/post/20241228/</link>
       <pubDate>Sat, 28 Dec 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/post/20241228/</guid>
-      <description>&lt;h2 id=&#34;随笔&#34;&gt;随笔&lt;/h2&gt;
-&lt;p&gt;最近有点迷茫，要学的东西很多，但是没有动力学习&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>fuck the life!</title>
-      <link>http://localhost:1313/post/20241216/</link>
-      <pubDate>Mon, 16 Dec 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/post/20241216/</guid>
       <description>&lt;h2 id=&#34;随笔&#34;&gt;随笔&lt;/h2&gt;
 &lt;p&gt;不知道写点什么，就随便写写&lt;/p&gt;
 </description>

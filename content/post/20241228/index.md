@@ -1,7 +1,7 @@
 ---
 title: fuck the life!
 # summary: Easily manage your projects - create ideation mind maps, Gantt charts, todo lists, and more!
-date: 2024-12-16
+date: 2024-12-28
 authors:
   - admin
 tags:
@@ -12,4 +12,4 @@ tags:
 
 ## 随笔
 
-不知道写点什么，就随便写写
+最近有点迷茫，要学的东西很多，但是没有动力学习
