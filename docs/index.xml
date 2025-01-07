@@ -46,7 +46,7 @@
       <pubDate>Sun, 07 Jan 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/post/20250107/</guid>
       <description>&lt;h2 id=&#34;前置知识&#34;&gt;前置知识&lt;/h2&gt;
-&lt;h3 id=&#34;1-对比度&#34;&gt;1. 对比度&lt;/h3&gt;
+&lt;h3 id=&#34;对比度&#34;&gt;对比度&lt;/h3&gt;
 &lt;p&gt;对比度是图像中最亮和最暗区域之间的亮度差异，决定了画面的&lt;strong&gt;视觉冲击力&lt;/strong&gt;和&lt;strong&gt;层次感&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -66,7 +66,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;2-饱和度&#34;&gt;2. 饱和度&lt;/h3&gt;
+&lt;h3 id=&#34;饱和度&#34;&gt;饱和度&lt;/h3&gt;
 &lt;p&gt;饱和度是用来描述色彩的鲜艳程度&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -78,7 +78,7 @@
 色彩柔和甚至趋于灰色，适合表达&lt;strong&gt;宁静、怀旧或低调&lt;/strong&gt;的氛围&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;3-曝光&#34;&gt;3. 曝光&lt;/h3&gt;
+&lt;h3 id=&#34;曝光&#34;&gt;曝光&lt;/h3&gt;
 &lt;p&gt;曝光是指传感器接收到的光线总量。它由光圈、快门速度和感光度（ISO）共同决定&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;曝光过度： 图像整体偏亮，亮部可能失去细节&lt;/li&gt;
