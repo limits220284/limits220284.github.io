@@ -41,11 +41,18 @@
   
     
   
-  <meta name="description" content="随笔 不知道写点什么，就随便写写
+  <meta name="description" content="📌 一、路径遍历攻击是什么？ 路径遍历（Path Traversal）攻击是一种安全漏洞，攻击者通过控制程序访问文件的路径，使程序打开了原本未授权访问的敏感文件。
+📌 二、典型漏洞示例（易受攻击的代码） 存在漏洞的代码通常长这样：
+// baseDirectory 是受信任的固定目录 // filename 是用户可控制的输入 f, err := os.Open(filepath.Join(baseDirectory, filename)) 为什么这段代码有漏洞？
+假设：
+baseDirectory := &#34;/var/www/data&#34; filename := &#34;../../../../etc/passwd&#34; 执行后：
+filepath.Join(&#34;/var/www/data&#34;, &#34;../../../../etc/passwd&#34;) // 实际路径：&#34;/etc/passwd&#34; 攻击者成功跳出了本来限定的目录（/var/www/data），访问到了敏感文件。
+📌 三、为什么传统路径检查不够安全？ 你可能会想自己手动验证，比如：
+// 手动检查路径安全性（不推荐） if strings.Contains(filename, &#34;..&#34;) { return errors.New(&#34;路径不安全&#34;) } f, err := os.Open(filepath.Join(baseDirectory, filename)) 但这种检查方式不安全，原因如下：
 " />
 
   
-  <link rel="alternate" hreflang="en-us" href="http://localhost:1313/post/20241216/" />
+  <link rel="alternate" hreflang="en-us" href="http://localhost:1313/post/202503282138/" />
 
   
   
@@ -162,7 +169,7 @@
   <link rel="icon" type="image/png" href="/media/icon_hu3247630877640252165.png" />
   <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu4166356570829923896.png" />
 
-  <link rel="canonical" href="http://localhost:1313/post/20241216/" />
+  <link rel="canonical" href="http://localhost:1313/post/202503282138/" />
 
   
   
@@ -188,19 +195,42 @@
     <meta property="twitter:creator" content="@GetResearchDev" />
   
   <meta property="og:site_name" content="Hugo Academic CV Theme" />
-  <meta property="og:url" content="http://localhost:1313/post/20241216/" />
-  <meta property="og:title" content="fuck the life! | Hugo Academic CV Theme" />
-  <meta property="og:description" content="随笔
-不知道写点什么，就随便写写" /><meta property="og:image" content="http://localhost:1313/media/icon_hu7729264130191091259.png" />
+  <meta property="og:url" content="http://localhost:1313/post/202503282138/" />
+  <meta property="og:title" content="Traversal-resistant file APIs | Hugo Academic CV Theme" />
+  <meta property="og:description" content="📌 一、路径遍历攻击是什么？
+路径遍历（Path Traversal）攻击是一种安全漏洞，攻击者通过控制程序访问文件的路径，使程序打开了原本未授权访问的敏感文件。
+
+📌 二、典型漏洞示例（易受攻击的代码）
+存在漏洞的代码通常长这样：
+// baseDirectory 是受信任的固定目录
+// filename 是用户可控制的输入
+f, err := os.Open(filepath.Join(baseDirectory, filename))
+为什么这段代码有漏洞？
+假设：
+baseDirectory := &#34;/var/www/data&#34;
+filename := &#34;../../../../etc/passwd&#34;
+执行后：
+filepath.Join(&#34;/var/www/data&#34;, &#34;../../../../etc/passwd&#34;)
+// 实际路径：&#34;/etc/passwd&#34;
+攻击者成功跳出了本来限定的目录（/var/www/data），访问到了敏感文件。
+
+📌 三、为什么传统路径检查不够安全？
+你可能会想自己手动验证，比如：
+// 手动检查路径安全性（不推荐）
+if strings.Contains(filename, &#34;..&#34;) {
+    return errors.New(&#34;路径不安全&#34;)
+}
+f, err := os.Open(filepath.Join(baseDirectory, filename))
+但这种检查方式不安全，原因如下：" /><meta property="og:image" content="http://localhost:1313/media/icon_hu7729264130191091259.png" />
     <meta property="twitter:image" content="http://localhost:1313/media/icon_hu7729264130191091259.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2024-12-16T00:00:00&#43;00:00"
+        content="2025-03-28T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2024-12-16T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2025-03-28T00:00:00&#43;00:00">
   
 
   
@@ -210,7 +240,7 @@
   
 
 
-  <title>fuck the life! | Hugo Academic CV Theme</title>
+  <title>Traversal-resistant file APIs | Hugo Academic CV Theme</title>
 
   
   
@@ -790,13 +820,64 @@
   >Goodbye core types-Hello Go as we know and love it!
     </a>
               
-            </li><li class="flex flex-col "><a
+            </li><li class="flex flex-col open"><a
     class="hb-sidebar-custom-link
-      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
+      sidebar-active-item bg-primary-100 font-semibold text-primary-800 dark:bg-primary-300 dark:text-primary-900"
     href="/post/202503282138/"
     
   >Traversal-resistant file APIs
     </a>
+  
+    <ul class="hb-sidebar-mobile-toc"><li>
+              <a
+                href="#-%e4%b8%80%e8%b7%af%e5%be%84%e9%81%8d%e5%8e%86%e6%94%bb%e5%87%bb%e6%98%af%e4%bb%80%e4%b9%88"
+                class="hb-docs-link"
+              >📌 一、路径遍历攻击是什么？</a>
+            </li>
+          <li>
+              <a
+                href="#-%e4%ba%8c%e5%85%b8%e5%9e%8b%e6%bc%8f%e6%b4%9e%e7%a4%ba%e4%be%8b%e6%98%93%e5%8f%97%e6%94%bb%e5%87%bb%e7%9a%84%e4%bb%a3%e7%a0%81"
+                class="hb-docs-link"
+              >📌 二、典型漏洞示例（易受攻击的代码）</a>
+            </li>
+          <li>
+              <a
+                href="#-%e4%b8%89%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bc%a0%e7%bb%9f%e8%b7%af%e5%be%84%e6%a3%80%e6%9f%a5%e4%b8%8d%e5%a4%9f%e5%ae%89%e5%85%a8"
+                class="hb-docs-link"
+              >📌 三、为什么传统路径检查不够安全？</a>
+            </li>
+          <li>
+              <a
+                href="#-%e5%9b%9bgo-124-%e6%8f%90%e4%be%9b%e7%9a%84%e5%ae%89%e5%85%a8%e6%96%b9%e6%a1%88osroot--osopeninroot"
+                class="hb-docs-link"
+              >📌 四、Go 1.24 提供的安全方案：&lt;code&gt;os.Root&lt;/code&gt; / &lt;code&gt;os.OpenInRoot&lt;/code&gt;</a>
+            </li>
+          <li>
+              <a
+                href="#-%e4%ba%94%e5%b9%b3%e5%8f%b0%e5%b7%ae%e5%bc%82%e5%92%8c%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9"
+                class="hb-docs-link"
+              >📌 五、平台差异和注意事项</a>
+            </li>
+          <li>
+              <a
+                href="#-%e5%85%ad%e6%80%a7%e8%83%bd%e9%97%ae%e9%a2%98%e4%b8%8e%e4%bc%98%e5%8c%96"
+                class="hb-docs-link"
+              >📌 六、性能问题与优化</a>
+            </li>
+          <li>
+              <a
+                href="#-%e4%b8%83%e4%bb%80%e4%b9%88%e6%97%b6%e5%80%99%e5%bf%85%e9%a1%bb%e4%bd%bf%e7%94%a8-osroot"
+                class="hb-docs-link"
+              >📌 七、什么时候必须使用 &lt;code&gt;os.Root&lt;/code&gt;？</a>
+            </li>
+          <li>
+              <a
+                href="#-%e5%85%ab%e5%ae%8c%e6%95%b4%e6%80%bb%e7%bb%93%e4%b8%8e%e5%bb%ba%e8%ae%ae"
+                class="hb-docs-link"
+              >📌 八、完整总结与建议</a>
+            </li>
+          </ul>
+  
               
             </li><li class="flex flex-col "><a
     class="hb-sidebar-custom-link
@@ -806,22 +887,13 @@
   >fuck the life!
     </a>
               
-            </li><li class="flex flex-col open"><a
+            </li><li class="flex flex-col "><a
     class="hb-sidebar-custom-link
-      sidebar-active-item bg-primary-100 font-semibold text-primary-800 dark:bg-primary-300 dark:text-primary-900"
+      text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-primary-800 dark:hover:text-gray-50"
     href="/post/20241216/"
     
   >fuck the life!
     </a>
-  
-    <ul class="hb-sidebar-mobile-toc"><li>
-              <a
-                href="#%e9%9a%8f%e7%ac%94"
-                class="hb-docs-link"
-              >随笔</a>
-            </li>
-          </ul>
-  
               
             </li><li class="flex flex-col "><a
     class="hb-sidebar-custom-link
@@ -953,7 +1025,31 @@
 
   <div class="hb-scrollbar text-sm [hyphens:auto] sticky top-16 overflow-y-auto pr-4 pt-6 max-h-[calc(100vh-var(--navbar-height)-env(safe-area-inset-bottom))] -mr-4 rtl:-ml-4"><p class="mb-4 font-semibold tracking-tight">On this page</p><ul>
       <li class="my-2 scroll-my-6 scroll-py-6">
-        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#%e9%9a%8f%e7%ac%94">随笔</a>
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#-%e4%b8%80%e8%b7%af%e5%be%84%e9%81%8d%e5%8e%86%e6%94%bb%e5%87%bb%e6%98%af%e4%bb%80%e4%b9%88">📌 一、路径遍历攻击是什么？</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#-%e4%ba%8c%e5%85%b8%e5%9e%8b%e6%bc%8f%e6%b4%9e%e7%a4%ba%e4%be%8b%e6%98%93%e5%8f%97%e6%94%bb%e5%87%bb%e7%9a%84%e4%bb%a3%e7%a0%81">📌 二、典型漏洞示例（易受攻击的代码）</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#-%e4%b8%89%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bc%a0%e7%bb%9f%e8%b7%af%e5%be%84%e6%a3%80%e6%9f%a5%e4%b8%8d%e5%a4%9f%e5%ae%89%e5%85%a8">📌 三、为什么传统路径检查不够安全？</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#-%e5%9b%9bgo-124-%e6%8f%90%e4%be%9b%e7%9a%84%e5%ae%89%e5%85%a8%e6%96%b9%e6%a1%88osroot--osopeninroot">📌 四、Go 1.24 提供的安全方案：os.Root / os.OpenInRoot</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="pl-4 rtl:pr-4 inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#%e5%ae%83%e4%b8%ba%e4%bb%80%e4%b9%88%e5%ae%89%e5%85%a8">它为什么安全？</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#-%e4%ba%94%e5%b9%b3%e5%8f%b0%e5%b7%ae%e5%bc%82%e5%92%8c%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9">📌 五、平台差异和注意事项</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#-%e5%85%ad%e6%80%a7%e8%83%bd%e9%97%ae%e9%a2%98%e4%b8%8e%e4%bc%98%e5%8c%96">📌 六、性能问题与优化</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#-%e4%b8%83%e4%bb%80%e4%b9%88%e6%97%b6%e5%80%99%e5%bf%85%e9%a1%bb%e4%bd%bf%e7%94%a8-osroot">📌 七、什么时候必须使用 os.Root？</a>
+      </li>
+      <li class="my-2 scroll-my-6 scroll-py-6">
+        <a class="font-semibold inline-block text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 w-full break-words" href="#-%e5%85%ab%e5%ae%8c%e6%95%b4%e6%80%bb%e7%bb%93%e4%b8%8e%e5%bb%ba%e8%ae%ae">📌 八、完整总结与建议</a>
       </li></ul>
 
   
@@ -986,10 +1082,10 @@
 
       
 
-      <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">fuck the life!</h1>
+      <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Traversal-resistant file APIs</h1>
 
       <div class="mt-4 mb-16">
-      <div class="text-gray-500 dark:text-gray-300 text-sm flex items-center flex-wrap gap-y-2"><span class="mr-1">Dec 16, 2024</span><span class="mx-1">·</span>
+      <div class="text-gray-500 dark:text-gray-300 text-sm flex items-center flex-wrap gap-y-2"><span class="mr-1">Mar 28, 2025</span><span class="mx-1">·</span>
         
           
           
@@ -1031,15 +1127,139 @@
       
 
       <div class="prose prose-slate lg:prose-xl dark:prose-invert">
-        <h2 id="随笔">随笔</h2>
-<p>不知道写点什么，就随便写写</p>
+        <h2 id="-一路径遍历攻击是什么">📌 一、路径遍历攻击是什么？</h2>
+<p>路径遍历（Path Traversal）攻击是一种安全漏洞，攻击者通过控制程序访问文件的路径，使程序打开了原本<strong>未授权访问</strong>的敏感文件。</p>
+<hr>
+<h2 id="-二典型漏洞示例易受攻击的代码">📌 二、典型漏洞示例（易受攻击的代码）</h2>
+<p>存在漏洞的代码通常长这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// baseDirectory 是受信任的固定目录
+</span></span></span><span class="line"><span class="cl"><span class="c1">// filename 是用户可控制的输入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">baseDirectory</span><span class="p">,</span> <span class="nx">filename</span><span class="p">))</span>
+</span></span></code></pre></div><p><strong>为什么这段代码有漏洞？</strong></p>
+<p>假设：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">baseDirectory</span> <span class="o">:=</span> <span class="s">&#34;/var/www/data&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">filename</span> <span class="o">:=</span> <span class="s">&#34;../../../../etc/passwd&#34;</span>
+</span></span></code></pre></div><p>执行后：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="s">&#34;/var/www/data&#34;</span><span class="p">,</span> <span class="s">&#34;../../../../etc/passwd&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 实际路径：&#34;/etc/passwd&#34;
+</span></span></span></code></pre></div><p>攻击者成功跳出了本来限定的目录（<code>/var/www/data</code>），访问到了敏感文件。</p>
+<hr>
+<h2 id="-三为什么传统路径检查不够安全">📌 三、为什么传统路径检查不够安全？</h2>
+<p>你可能会想自己手动验证，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 手动检查路径安全性（不推荐）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Contains</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="s">&#34;..&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">errors</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="s">&#34;路径不安全&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">baseDirectory</span><span class="p">,</span> <span class="nx">filename</span><span class="p">))</span>
+</span></span></code></pre></div><p>但这种检查方式<strong>不安全</strong>，原因如下：</p>
+<ul>
+<li><strong>易被绕过</strong>：复杂路径组合（如<code>..././../</code>）或绝对路径难以完全覆盖；</li>
+<li><strong>跨平台问题</strong>：Windows 和 Unix/Linux 系统对路径的理解不同，Windows 还涉及特殊设备名；</li>
+<li><strong>TOCTOU攻击</strong>：<br>
+攻击者可以在你的检查完成后、程序真正打开文件之前，通过修改符号链接或路径结构，仍旧绕过检查。</li>
+</ul>
+<hr>
+<h2 id="-四go-124-提供的安全方案osroot--osopeninroot">📌 四、Go 1.24 提供的安全方案：<code>os.Root</code> / <code>os.OpenInRoot</code></h2>
+<p>为彻底解决上述问题，Go 1.24 推出了新的 API：</p>
+<p>安全代码示例如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 安全的代码，彻底防止路径逃逸
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">OpenInRoot</span><span class="p">(</span><span class="nx">baseDirectory</span><span class="p">,</span> <span class="nx">filename</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="它为什么安全">它为什么安全？</h3>
+<p><code>os.OpenInRoot</code> 内部机制：</p>
+<ul>
+<li>首先打开并锁定根目录（如<code>/var/www/data</code>）；</li>
+<li>自动检查用户提供的路径，<strong>绝不允许</strong>路径逃逸（如通过<code>../</code>）；</li>
+<li>使用平台原生API（如Unix/Linux 的<code>openat</code>）防止符号链接攻击；</li>
+<li>Windows 平台防止特殊设备名访问，如<code>COM1</code>、<code>NUL</code>。</li>
+</ul>
+<hr>
+<h2 id="-五平台差异和注意事项">📌 五、平台差异和注意事项</h2>
+<table>
+  <thead>
+      <tr>
+          <th>平台</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Unix/Linux</strong></td>
+          <td>用<code>openat</code>系统调用防止逃逸，但无法阻止root用户创建的挂载点（如bind mount）攻击。</td>
+      </tr>
+      <tr>
+          <td><strong>Windows</strong></td>
+          <td>通过句柄锁定目录，阻止目录被重命名或删除；禁止访问特殊设备名。</td>
+      </tr>
+      <tr>
+          <td><strong>WASI</strong></td>
+          <td>安全性取决于WASI实现的沙箱特性。</td>
+      </tr>
+      <tr>
+          <td><strong>GOOS=js (Node.js环境)</strong></td>
+          <td>无法有效抵御TOCTOU攻击，因为缺少<code>openat</code>函数。</td>
+      </tr>
+      <tr>
+          <td><strong>Plan 9</strong></td>
+          <td>没有符号链接，直接进行路径词法检查。</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="-六性能问题与优化">📌 六、性能问题与优化</h2>
+<ul>
+<li>使用<code>os.Root</code>或<code>os.OpenInRoot</code>处理复杂路径（大量<code>../</code>）效率稍低；</li>
+<li>建议提前使用<code>filepath.Clean</code>清理路径来提高性能。</li>
+</ul>
+<hr>
+<h2 id="-七什么时候必须使用-osroot">📌 七、什么时候必须使用 <code>os.Root</code>？</h2>
+<p>满足以下条件必须使用：</p>
+<ul>
+<li>你要打开的文件<strong>位于某个指定的根目录内</strong>；</li>
+<li>文件路径<strong>来自外部用户的输入或不可信来源</strong>。</li>
+</ul>
+<p>例如：</p>
+<ul>
+<li>解压zip/tar文件到特定目录；</li>
+<li>用户上传文件，必须限制到特定文件夹。</li>
+</ul>
+<hr>
+<h2 id="-八完整总结与建议">📌 八、完整总结与建议</h2>
+<table>
+  <thead>
+      <tr>
+          <th>方式</th>
+          <th>是否安全</th>
+          <th>理由</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>✅ <code>os.OpenInRoot(baseDirectory, filename)</code></td>
+          <td><strong>安全</strong></td>
+          <td>内置安全机制，路径无法逃逸</td>
+      </tr>
+      <tr>
+          <td>❌ <code>os.Open(filepath.Join(baseDirectory, filename))</code></td>
+          <td><strong>不安全</strong></td>
+          <td>可通过路径遍历(<code>../</code>)攻击逃出</td>
+      </tr>
+      <tr>
+          <td>❌ 手动检查路径（如<code>strings.Contains(&quot;..&quot;)</code>）</td>
+          <td><strong>不安全</strong></td>
+          <td>易绕过，且易受TOCTOU攻击</td>
+      </tr>
+  </tbody>
+</table>
+<p>因此，<strong>推荐始终使用<code>os.OpenInRoot</code>或<code>os.Root</code>处理外部来源路径</strong>，有效防范路径遍历攻击。</p>
+<hr>
+<p>以上即为路径遍历攻击及 Go 1.24 中新安全 API 完整详细的总结和解释。</p>
 
       </div>
 
       
-  <time class="mt-12 mb-8 block text-xs text-gray-500 ltr:text-right rtl:text-left dark:text-gray-400" datetime="2024-12-16T00:00:00.000Z">
+  <time class="mt-12 mb-8 block text-xs text-gray-500 ltr:text-right rtl:text-left dark:text-gray-400" datetime="2025-03-28T00:00:00.000Z">
     <span>Last updated on</span>
-    Dec 16, 2024</time>
+    Mar 28, 2025</time>
 
       <div class="container mx-auto prose prose-slate lg:prose-xl dark:prose-invert mt-5">
         
@@ -1069,7 +1289,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%3A1313%2Fpost%2F20241216%2F&amp;text=fuck&#43;the&#43;life%21"
+    href="https://twitter.com/intent/tweet?url=http%3A%2F%2Flocalhost%3A1313%2Fpost%2F202503282138%2F&amp;text=Traversal-resistant&#43;file&#43;APIs"
     title="X"
     aria-label="X"
     id="share-link-x"
@@ -1087,7 +1307,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%3A1313%2Fpost%2F20241216%2F&amp;t=fuck&#43;the&#43;life%21"
+    href="https://www.facebook.com/sharer.php?u=http%3A%2F%2Flocalhost%3A1313%2Fpost%2F202503282138%2F&amp;t=Traversal-resistant&#43;file&#43;APIs"
     title="Facebook"
     aria-label="Facebook"
     id="share-link-facebook"
@@ -1107,7 +1327,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="mailto:?subject=fuck%20the%20life%21&amp;body=http%3A%2F%2Flocalhost%3A1313%2Fpost%2F20241216%2F"
+    href="mailto:?subject=Traversal-resistant%20file%20APIs&amp;body=http%3A%2F%2Flocalhost%3A1313%2Fpost%2F202503282138%2F"
     title="Email"
     aria-label="Email"
     id="share-link-email"
@@ -1125,7 +1345,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="https://www.linkedin.com/shareArticle?url=http%3A%2F%2Flocalhost%3A1313%2Fpost%2F20241216%2F&amp;title=fuck&#43;the&#43;life%21"
+    href="https://www.linkedin.com/shareArticle?url=http%3A%2F%2Flocalhost%3A1313%2Fpost%2F202503282138%2F&amp;title=Traversal-resistant&#43;file&#43;APIs"
     title="LinkedIn"
     aria-label="LinkedIn"
     id="share-link-linkedin"
@@ -1143,7 +1363,7 @@
   <a
     target="_blank" rel="noopener"
     class="m-1 rounded-md bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral-300 dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-    href="whatsapp://send?text=fuck&#43;the&#43;life%21%20http%3A%2F%2Flocalhost%3A1313%2Fpost%2F20241216%2F"
+    href="whatsapp://send?text=Traversal-resistant&#43;file&#43;APIs%20http%3A%2F%2Flocalhost%3A1313%2Fpost%2F202503282138%2F"
     title="WhatsApp"
     aria-label="WhatsApp"
     id="share-link-whatsapp"
@@ -1269,17 +1489,17 @@
   <div class="flex flex-col md:flex-row flex-nowrap justify-between gap-5 pt-2">
     <div class="">
       
-        <a class="group flex no-underline" href="/post/20241228/">
+        <a class="group flex no-underline" href="/post/20250328/">
           <span
             class="mt-[-0.3rem] me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
           ><span class="ltr:inline rtl:hidden">&larr;</span></span>
           <span class="flex flex-col">
             <span
               class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-            >fuck the life!</span>
+            >Goodbye core types-Hello Go as we know and love it!</span>
             <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
               
-                Dec 28, 2024
+                Mar 28, 2025
               
             </span>
           </span>
@@ -1288,15 +1508,15 @@
     </div>
     <div class="">
       
-        <a class="group flex text-right no-underline" href="/post/20250107/">
+        <a class="group flex text-right no-underline" href="/post/20241228/">
           <span class="flex flex-col">
             <span
               class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-            >摄影基础知识系列-1</span
+            >fuck the life!</span
             >
             <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
               
-                Jan 7, 2024
+                Dec 28, 2024
               
             </span>
           </span>

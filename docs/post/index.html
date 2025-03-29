@@ -1,13 +1,13 @@
 <!doctype html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: January 7, 2025 --><html lang="en-us" dir="ltr"
+<!-- Last Published: March 28, 2025 --><html lang="en-us" dir="ltr"
       data-wc-theme-default="system">
   
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="generator" content="Hugo Blox Builder 0.3.1" />
+  <meta name="generator" content="Hugo Blox Builder 0.3.2" />
 
   
   
@@ -57,7 +57,7 @@
   
   
     
-    <link href="/dist/wc.min.css" rel="stylesheet" />
+    <link href="/dist/wc.min.05570f1deda629d4e2d77f73534a63aa04471f012db6735c59424372f467db85.css" rel="stylesheet" />
   
 
   
@@ -195,7 +195,7 @@
     <meta property="twitter:image" content="http://localhost:1313/media/icon_hu7729264130191091259.png" /><meta property="og:locale" content="en-us" />
   
     
-      <meta property="og:updated_time" content="2024-12-28T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2025-03-28T00:00:00&#43;00:00" />
     
   
 
@@ -231,6 +231,9 @@
   
 
 
+  
+  
+  
   
   
   
@@ -441,40 +444,67 @@
     --pagefind-ui-border: #152028;
     --pagefind-ui-tag: #152028;
   }
+
+   
+  .search-close > svg {
+    height: calc(64px * var(--pagefind-ui-scale));
+    width: calc(64px * var(--pagefind-ui-scale));
+  }
 </style>
 
 <script>
+  
+  let searchWrapper = null;
+
   window.addEventListener('DOMContentLoaded', (event) => {
+    
     new PagefindUI({
       element: "#search",
       showSubResults: true,
       baseUrl: window.hbb.pagefind.baseUrl,
       bundlePath: window.hbb.pagefind.baseUrl + "pagefind/",
     });
+
+    
+    searchWrapper = document.getElementById('search-wrapper');
+
+    
+    let triggers = document.querySelectorAll('[data-search-toggle]');
+    triggers.forEach(trigger =>
+      trigger.addEventListener('click', handleSearchToggle)
+    );
   });
-  document.addEventListener('DOMContentLoaded', () => {
-    let element = document.getElementById('search');
-    let trigger = document.getElementById('search_toggle');
 
-    if (trigger) {
-      trigger.addEventListener('click', () => {
-        element.classList.toggle('hidden');
-        element.querySelector("input").value = ""
-        element.querySelector("input").focus()
+  function handleSearchToggle(event) {
+    if (!searchWrapper) return;
 
-        if (!element.classList.contains('hidden')) {
-          let clear_trigger = document.querySelector('.pagefind-ui__search-clear');
+    const isHidden = searchWrapper.classList.contains('hidden');
+    searchWrapper.classList.toggle('hidden');
+    document.body.style.overflow = isHidden ? 'hidden' : '';
 
-          if (clear_trigger && !clear_trigger.hasAttribute('listenerOnClick')) {
-            clear_trigger.setAttribute('listenerOnClick', 'true');
+    const searchInput = searchWrapper.querySelector("input");
+    if (searchInput) {
+      searchInput.value = "";
+      searchInput.focus();
+    }
 
-            clear_trigger.addEventListener('click', () => {
-              element.classList.toggle('hidden');
-            });
-          }
-        }
+    if (!searchWrapper.classList.contains('hidden')) {
+      let clearTrigger = document.querySelector('.pagefind-ui__search-clear');
 
-      });
+      if (clearTrigger && !clearTrigger.hasAttribute('listenerOnClick')) {
+        clearTrigger.setAttribute('listenerOnClick', 'true');
+
+        clearTrigger.addEventListener('click', () => {
+          searchInput.focus();
+        });
+      }
+    }
+  }
+
+  
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && searchWrapper && !searchWrapper.classList.contains('hidden')) {
+      searchWrapper.classList.add('hidden');
     }
   });
 </script>
@@ -638,9 +668,9 @@
       
       
       <button
-        aria-label="search"
+        aria-label="toggle search"
         class="text-black hover:text-primary  inline-block px-3 text-xl dark:text-white"
-        id="search_toggle">
+        data-search-toggle>
         <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" fill="currentColor"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
       </button>
       
@@ -681,8 +711,26 @@
   </nav>
 </header>
 
+<div
+  id="search-wrapper"
+  class="hidden fixed inset-0 z-50 bg-white dark:bg-gray-900 flex flex-col overflow-hidden"
+>
+  <div class="flex justify-end p-3">
+    <button
+      aria-label="search"
+      class="search-close text-black hover:text-primary dark:text-white"
+      data-search-toggle
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
 
-<div id="search" class="hidden p-3"></div>
+  <div id="search" class="flex-1 overflow-y-auto p-3">
+    
+  </div>
+</div>
 
 
         
@@ -735,6 +783,229 @@
       </div>
       
       <h2 class="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white"><a
+        href="/post/202503282138/" ><span
+        class="bg-gradient-to-r from-primary-200 to-primary-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-primary-800 dark:to-primary-900">Traversal-resistant file APIs
+          </span></a>
+      </h2>
+      
+      <div class="grow"><p class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400"><a
+        href="/post/202503282138/" >
+        📌 一、路径遍历攻击是什么？ 路径遍历（Path Traversal）攻击是一种安全漏洞，攻击者通过控制程序访问文件的路径，使程序打开了原本未授权访问的敏感文件。
+📌 二、典型漏洞示例（易受攻击的代码） 存在漏洞的代码通常长这样：
+// baseDirectory 是受信任的固定目录 // filename 是用户可控制的输入 f, err := os.Open(filepath.Join(baseDirectory, filename)) 为什么这段代码有漏洞？
+假设：
+baseDirectory := &#34;/var/www/data&#34; filename := &#34;../../../../etc/passwd&#34; 执行后：
+filepath.Join(&#34;/var/www/data&#34;, &#34;../../../../etc/passwd&#34;) // 实际路径：&#34;/etc/passwd&#34; 攻击者成功跳出了本来限定的目录（/var/www/data），访问到了敏感文件。
+📌 三、为什么传统路径检查不够安全？ 你可能会想自己手动验证，比如：
+// 手动检查路径安全性（不推荐） if strings.Contains(filename, &#34;..&#34;) { return errors.New(&#34;路径不安全&#34;) } f, err := os.Open(filepath.Join(baseDirectory, filename)) 但这种检查方式不安全，原因如下：</a></p>
+      </div>
+      <div class="flex-none">
+        <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
+          
+          
+          <div class="flex items-center gap-3">
+            
+            <div class="relative h-5 w-5 flex-shrink-0">
+              
+              
+              
+              <img alt="avatar"
+                   class="rounded-full object-cover"
+                   data-nimg="fill"
+                   decoding="async" height="50"
+                   loading="lazy"
+                   sizes="20px"
+                   src="/author/%E7%8E%8B%E6%98%8A/avatar_hu399236182368842471.webp"
+                   style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                   width="50">
+              
+            </div>
+            <span class="truncate text-sm">王昊</span>
+          </div>
+          
+          
+          <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
+          
+          <time class="truncate text-sm" datetime="2025-03-28">Mar 28, 2025</time>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div class="group cursor-pointer">
+
+  
+  <div class="">
+    <div class="">
+      <div class="flex gap-3">
+        
+        <a href="/tags/%E9%9A%8F%E7%AC%94/"><span
+          class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-primary-700 dark:text-primary-300">随笔</span></a>
+        
+      </div>
+      
+      <h2 class="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white"><a
+        href="/post/20250328/" ><span
+        class="bg-gradient-to-r from-primary-200 to-primary-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-primary-800 dark:to-primary-900">Goodbye core types-Hello Go as we know and love it!
+          </span></a>
+      </h2>
+      
+      <div class="grow"><p class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400"><a
+        href="/post/20250328/" >
+        📌 一、理解背景：Go语言泛型（Generics）的引入 在 Go 1.18（2022年3月发布）以前，Go语言并没有泛型功能（generics）。所谓泛型就是写函数或数据结构时，可以不指定具体类型，而用类型参数代替，然后调用时再填入具体类型，这样函数可以用于很多不同类型的情况。
+比如：
+// 没有泛型之前，得为每种类型写一个函数 func SumInt(a, b int) int { return a &#43; b } func SumFloat(a, b float64) float64 { return a &#43; b } // 泛型后，可以只写一个函数： func Sum[T int | float64](a, b T) T { return a &#43; b } 泛型的引入使Go语言更灵活、更强大。但随之而来，语言内部实现变得复杂了。
+📌 二、理解类型参数、类型约束和类型集 泛型中出现了一些重要概念：
+类型参数（Type Parameter） 就是泛型函数或泛型结构体中用来代替具体类型的占位符，类似函数参数。
+func Example[T any](value T) T { return value } 这里T就是一个类型参数。
+类型约束（Type Constraint） 表示一个类型参数能取哪些具体类型的限制。用接口表示：
+type MyConstraint interface { ~string | ~[]byte Hash() uint64 } 这个约束表示任何底层类型是string或[]byte，并且实现了Hash()方法的类型都可以满足。</a></p>
+      </div>
+      <div class="flex-none">
+        <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
+          
+          
+          <div class="flex items-center gap-3">
+            
+            <div class="relative h-5 w-5 flex-shrink-0">
+              
+              
+              
+              <img alt="avatar"
+                   class="rounded-full object-cover"
+                   data-nimg="fill"
+                   decoding="async" height="50"
+                   loading="lazy"
+                   sizes="20px"
+                   src="/author/%E7%8E%8B%E6%98%8A/avatar_hu399236182368842471.webp"
+                   style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                   width="50">
+              
+            </div>
+            <span class="truncate text-sm">王昊</span>
+          </div>
+          
+          
+          <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
+          
+          <time class="truncate text-sm" datetime="2025-03-28">Mar 28, 2025</time>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div class="group cursor-pointer">
+
+  
+  <div class="">
+    <div class="">
+      <div class="flex gap-3">
+        
+        <a href="/tags/%E9%9A%8F%E7%AC%94/"><span
+          class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-primary-700 dark:text-primary-300">随笔</span></a>
+        
+      </div>
+      
+      <h2 class="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white"><a
+        href="/post/202503282156/" ><span
+        class="bg-gradient-to-r from-primary-200 to-primary-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-primary-800 dark:to-primary-900">From unique to cleanups and weak new low-level tools for efficiency
+          </span></a>
+      </h2>
+      
+      <div class="grow"><p class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400"><a
+        href="/post/202503282156/" >
+        📌 背景与动机 在过去，Go 语言提供了 runtime.SetFinalizer 方法来处理对象被垃圾回收时的清理操作（Finalizer）。
+但 Finalizer 存在一些固有问题：
+如果对象之间有循环引用，Finalizer 可能永远不会被调用，导致内存泄漏。 Finalizer 会延迟对象的回收，至少需要两个垃圾回收周期才能彻底清除对象。 Finalizer 有可能让对象“复活”（Resurrection），导致原本应被释放的对象意外存活下来，造成内存浪费。 因此，Go 在 1.24 版本推出了两个新功能：
+runtime.AddCleanup：更安全的对象清理方法。 weak.Pointer：弱引用指针类型，可以引用对象但不会阻止对象被回收。 这两个功能结合使用，能有效解决传统 Finalizer 的问题，并构建更高效、更安全的数据结构，比如缓存或去重机制。
+📌 一、runtime.AddCleanup（安全清理函数） runtime.AddCleanup 允许给一个对象附加一个“清理函数”，当该对象变得不可达（即垃圾回收后）时，清理函数将被执行。
+示例：使用内存映射文件（memory-mapped file）</a></p>
+      </div>
+      <div class="flex-none">
+        <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
+          
+          
+          <div class="flex items-center gap-3">
+            
+            <div class="relative h-5 w-5 flex-shrink-0">
+              
+              
+              
+              <img alt="avatar"
+                   class="rounded-full object-cover"
+                   data-nimg="fill"
+                   decoding="async" height="50"
+                   loading="lazy"
+                   sizes="20px"
+                   src="/author/%E7%8E%8B%E6%98%8A/avatar_hu399236182368842471.webp"
+                   style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                   width="50">
+              
+            </div>
+            <span class="truncate text-sm">王昊</span>
+          </div>
+          
+          
+          <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
+          
+          <time class="truncate text-sm" datetime="2025-03-28">Mar 28, 2025</time>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  
+  
+
+
+
+
+
+
+
+
+
+<div class="group cursor-pointer">
+
+  
+  <div class="">
+    <div class="">
+      <div class="flex gap-3">
+        
+        <a href="/tags/%E9%9A%8F%E7%AC%94/"><span
+          class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-primary-700 dark:text-primary-300">随笔</span></a>
+        
+      </div>
+      
+      <h2 class="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white"><a
         href="/post/20241228/" ><span
         class="bg-gradient-to-r from-primary-200 to-primary-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-primary-800 dark:to-primary-900">fuck the life!
           </span></a>
@@ -747,6 +1018,29 @@
       <div class="flex-none">
         <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
           
+          
+          <div class="flex items-center gap-3">
+            
+            <div class="relative h-5 w-5 flex-shrink-0">
+              
+              
+              
+              <img alt="avatar"
+                   class="rounded-full object-cover"
+                   data-nimg="fill"
+                   decoding="async" height="50"
+                   loading="lazy"
+                   sizes="20px"
+                   src="/author/%E7%8E%8B%E6%98%8A/avatar_hu399236182368842471.webp"
+                   style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                   width="50">
+              
+            </div>
+            <span class="truncate text-sm">王昊</span>
+          </div>
+          
+          
+          <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
           
           <time class="truncate text-sm" datetime="2024-12-28">Dec 28, 2024</time>
         </div>
@@ -793,6 +1087,29 @@
         <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
           
           
+          <div class="flex items-center gap-3">
+            
+            <div class="relative h-5 w-5 flex-shrink-0">
+              
+              
+              
+              <img alt="avatar"
+                   class="rounded-full object-cover"
+                   data-nimg="fill"
+                   decoding="async" height="50"
+                   loading="lazy"
+                   sizes="20px"
+                   src="/author/%E7%8E%8B%E6%98%8A/avatar_hu399236182368842471.webp"
+                   style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                   width="50">
+              
+            </div>
+            <span class="truncate text-sm">王昊</span>
+          </div>
+          
+          
+          <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
+          
           <time class="truncate text-sm" datetime="2024-12-16">Dec 16, 2024</time>
         </div>
       </div>
@@ -832,11 +1149,43 @@
       
       <div class="grow"><p class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400"><a
         href="/post/20250107/" >
-        摄影基础知识系列-1 1. 对比度 对比度是图像中最亮和最暗区域之间的亮度差异</a></p>
+        前置知识 对比度 对比度是图像中最亮和最暗区域之间的亮度差异，决定了画面的视觉冲击力和层次感
+高对比度： 图像中的亮部非常亮，暗部非常暗，中间的灰阶较少。常见于戏剧性或剪影风格的摄影，可以带来强烈的视觉冲击力
+优点：突出主体、创造戏剧效果 缺点：可能丢失细节，特别是在亮部或暗部 低对比度： 图像中的亮暗区域差异较小，过渡柔和，通常用于表现柔美、平静或细腻的氛围
+优点：细节丰富，适合表现复杂的纹理和场景 缺点：可能显得平淡，不够有力 饱和度 饱和度是用来描述色彩的鲜艳程度
+高饱和度： 色彩鲜艳、明亮，适合表现活力、热情
+低饱和度： 色彩柔和甚至趋于灰色，适合表达宁静、怀旧或低调的氛围
+曝光 曝光是指传感器接收到的光线总量。它由光圈、快门速度和感光度（ISO）共同决定
+曝光过度： 图像整体偏亮，亮部可能失去细节 曝光不足： 图像整体偏暗，暗部细节可能丢失 对比度与曝光的关系：
+曝光过度会减少对比度，尤其是高光区域 曝光不足也会降低对比度，特别是在暗部区域 色调 (Tones) 色调描述的是图像中明暗关系的分布
+高调摄影： 图像整体偏亮，适合表现柔和、梦幻或优雅的主题 低调摄影： 图像整体偏暗，适合表现神秘、戏剧性或压抑的情绪 清晰度 调整图像中中间调区域的对比度，增强纹理和细节</a></p>
       </div>
       <div class="flex-none">
         <div class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400 cursor-default">
           
+          
+          <div class="flex items-center gap-3">
+            
+            <div class="relative h-5 w-5 flex-shrink-0">
+              
+              
+              
+              <img alt="avatar"
+                   class="rounded-full object-cover"
+                   data-nimg="fill"
+                   decoding="async" height="50"
+                   loading="lazy"
+                   sizes="20px"
+                   src="/author/%E7%8E%8B%E6%98%8A/avatar_hu399236182368842471.webp"
+                   style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"
+                   width="50">
+              
+            </div>
+            <span class="truncate text-sm">王昊</span>
+          </div>
+          
+          
+          <span class="text-xs text-gray-300 dark:text-gray-600">•</span>
           
           <time class="truncate text-sm" datetime="2024-01-07">Jan 7, 2024</time>
         </div>
