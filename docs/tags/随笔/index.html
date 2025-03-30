@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- This site was created with Hugo Blox. https://hugoblox.com -->
-<!-- Last Published: March 28, 2025 --><html lang="en-us" dir="ltr"
+<!-- Last Published: March 30, 2025 --><html lang="en-us" dir="ltr"
       data-wc-theme-default="system">
   
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
@@ -195,7 +195,7 @@
     <meta property="twitter:image" content="http://localhost:1313/media/icon_hu7729264130191091259.png" /><meta property="og:locale" content="en-us" />
   
     
-      <meta property="og:updated_time" content="2024-12-28T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2025-03-28T00:00:00&#43;00:00" />
     
   
 
@@ -231,6 +231,10 @@
   
 
 
+  
+  
+  
+  
   
   
   
@@ -752,6 +756,125 @@
 
 
   
+  
+  
+
+
+
+
+
+
+
+
+<a href="/post/202503282138/"  class="mb-5">
+  <div class="md:flex">
+    <div class="md:flex-shrink-0 overflow-hidden">
+      
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">Traversal-resistant file APIs</div>
+      <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
+        📌 一、路径遍历攻击是什么？ 路径遍历（Path Traversal）攻击是一种安全漏洞，攻击者通过控制程序访问文件的路径，使程序打开了原本未授权访问的敏感文件。
+📌 二、典型漏洞示例（易受攻击的代码） 存在漏洞的代码通常长这样：
+// baseDirectory 是受信任的固定目录 // filename 是用户可控制的输入 f, err := os.Open(filepath.Join(baseDirectory, filename)) 为什么这段代码有漏洞？
+假设：
+baseDirectory := &#34;/var/www/data&#34; filename := &#34;../../../../etc/passwd&#34; 执行后：
+filepath.Join(&#34;/var/www/data&#34;, &#34;../../../../etc/passwd&#34;) // 实际路径：&#34;/etc/passwd&#34; 攻击者成功跳出了本来限定的目录（/var/www/data），访问到了敏感文件。
+📌 三、为什么传统路径检查不够安全？ 你可能会想自己手动验证，比如：
+// 手动检查路径安全性（不推荐） if strings.Contains(filename, &#34;..&#34;) { return errors.New(&#34;路径不安全&#34;) } f, err := os.Open(filepath.Join(baseDirectory, filename)) 但这种检查方式不安全，原因如下：</p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">Mar 28, 2025</p>
+    </div>
+  </div>
+</a>
+
+  
+  
+
+
+
+
+
+
+
+
+<a href="/post/20250328/"  class="mb-5">
+  <div class="md:flex">
+    <div class="md:flex-shrink-0 overflow-hidden">
+      
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">Goodbye core types-Hello Go as we know and love it!</div>
+      <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
+        📌 一、理解背景：Go语言泛型（Generics）的引入 在 Go 1.18（2022年3月发布）以前，Go语言并没有泛型功能（generics）。所谓泛型就是写函数或数据结构时，可以不指定具体类型，而用类型参数代替，然后调用时再填入具体类型，这样函数可以用于很多不同类型的情况。
+比如：
+// 没有泛型之前，得为每种类型写一个函数 func SumInt(a, b int) int { return a &#43; b } func SumFloat(a, b float64) float64 { return a &#43; b } // 泛型后，可以只写一个函数： func Sum[T int | float64](a, b T) T { return a &#43; b } 泛型的引入使Go语言更灵活、更强大。但随之而来，语言内部实现变得复杂了。
+📌 二、理解类型参数、类型约束和类型集 泛型中出现了一些重要概念：
+类型参数（Type Parameter） 就是泛型函数或泛型结构体中用来代替具体类型的占位符，类似函数参数。
+func Example[T any](value T) T { return value } 这里T就是一个类型参数。
+类型约束（Type Constraint） 表示一个类型参数能取哪些具体类型的限制。用接口表示：
+type MyConstraint interface { ~string | ~[]byte Hash() uint64 } 这个约束表示任何底层类型是string或[]byte，并且实现了Hash()方法的类型都可以满足。</p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">Mar 28, 2025</p>
+    </div>
+  </div>
+</a>
+
+  
+  
+
+
+
+
+
+
+
+
+<a href="/post/202503301500/"  class="mb-5">
+  <div class="md:flex">
+    <div class="md:flex-shrink-0 overflow-hidden">
+      
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">From unique to cleanups and weak new low-level tools for efficiency</div>
+      <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
+        🧠 一、背景：为什么并发测试很难？ Go 的并发编程很强大（goroutine &#43; channel），但并发测试却非常难写、难维护。
+1. 负面条件不好测试 比如你想测试某个函数 “还没有被调用” —— 你没法断言某事“没有发生”。
+常见写法是等待一段时间：
+select { case &lt;-calledCh: return true case &lt;-time.After(10 * time.Millisecond): return false // 没被调用 } 这种测试方式：
+速度慢：每个测试都等 10ms，几百个测试下来就很久了。 不稳定（flaky）：在 CI 上容易失败，比如系统卡顿，10ms 不够就误判失败。 不优雅：测试中必须人为引入等待时间，还可能产生 race。 🌟 二、解决方案：synctest 包 Go 1.24 引入了 testing/synctest 实验包，让并发测试变得快速、稳定、无 race 条件。</p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">Mar 28, 2025</p>
+    </div>
+  </div>
+</a>
+
+  
+  
+
+
+
+
+
+
+
+
+<a href="/post/202503282156/"  class="mb-5">
+  <div class="md:flex">
+    <div class="md:flex-shrink-0 overflow-hidden">
+      
+    </div>
+    <div class="p-8">
+      <div class="uppercase tracking-wide text-md text-primary-700 dark:text-primary-200 font-semibold">From unique to cleanups and weak new low-level tools for efficiency</div>
+      <p class="block mt-1 text-sm leading-tight font-medium text-black dark:text-white">
+        📌 背景与动机 在过去，Go 语言提供了 runtime.SetFinalizer 方法来处理对象被垃圾回收时的清理操作（Finalizer）。
+但 Finalizer 存在一些固有问题：
+如果对象之间有循环引用，Finalizer 可能永远不会被调用，导致内存泄漏。 Finalizer 会延迟对象的回收，至少需要两个垃圾回收周期才能彻底清除对象。 Finalizer 有可能让对象“复活”（Resurrection），导致原本应被释放的对象意外存活下来，造成内存浪费。 因此，Go 在 1.24 版本推出了两个新功能：
+runtime.AddCleanup：更安全的对象清理方法。 weak.Pointer：弱引用指针类型，可以引用对象但不会阻止对象被回收。 这两个功能结合使用，能有效解决传统 Finalizer 的问题，并构建更高效、更安全的数据结构，比如缓存或去重机制。
+📌 一、runtime.AddCleanup（安全清理函数） runtime.AddCleanup 允许给一个对象附加一个“清理函数”，当该对象变得不可达（即垃圾回收后）时，清理函数将被执行。
+示例：使用内存映射文件（memory-mapped file）</p>
+      <p class="mt-2 text-gray-500 dark:text-gray-400 text-sm">Mar 28, 2025</p>
+    </div>
+  </div>
+</a>
+
   
   
 
